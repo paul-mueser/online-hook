@@ -10,10 +10,10 @@ module.exports = (client) => {
 
         const eventName = eventFolder.replace(/\\/g, '/').split('/').pop();
 
-        client.on(eventName, async (arg) => {
+        client.on(eventName, async (arg1, arg2) => {
             for (const eventFile of eventFiles) {
                 const eventFunction = require(eventFile);
-                await eventFunction(client, arg);
+                await eventFunction(client, arg1, arg2);
             }
         });
     }

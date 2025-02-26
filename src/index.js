@@ -9,11 +9,13 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildVoiceStates,
     ],
 });
 
 eventHandler(client);
 
 global.botId = process.env.BOT_ID;
+global.onlineHooks = {};
 
 client.login(process.env.TOKEN);
