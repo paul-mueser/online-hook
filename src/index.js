@@ -17,5 +17,6 @@ eventHandler(client);
 
 global.botId = process.env.BOT_ID;
 global.onlineHooks = {};
+global.channelUsers = {};
 
 client.login(process.env.TOKEN);
