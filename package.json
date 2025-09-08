@@ -19,6 +19,6 @@
   "homepage": "https://github.com/paul-mueser/online-hook#readme",
   "dependencies": {
     "discord.js": "^14.22.1",
-    "dotenv": "^17.2.1"
+    "dotenv": "^17.2.2"
   }
 }
