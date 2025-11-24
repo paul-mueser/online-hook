@@ -25,12 +25,18 @@ module.exports = async (_, oldState, newState) => {
         if (members.length > 1) {
             if (global.onlineHooks[newState.channel.id]) {
                 m = global.onlineHooks[newState.channel.id];
-                m = await m.edit(`${role} **${members.length}** ${members.length > 1 ? 'members' : 'member'} in ${newState.channel.name} online`);
+                try {
+                    m = await m.edit(`${role} **${members.length}** ${members.length > 1 ? 'members' : 'member'} in ${newState.channel.name} online`);
+                } catch {}
             } else {
                 const channel = newState.guild.channels.cache.get(channelId);
-                m = await channel.send(`${role} **${members.length}** ${members.length > 1 ? 'members' : 'member'} in ${newState.channel.name} online`);
+                try {
+                    m = await channel.send(`${role} **${members.length}** ${members.length > 1 ? 'members' : 'member'} in ${newState.channel.name} online`);
+                } catch {}
             }
-            global.onlineHooks[newState.channel.id] = m;
+            if (m !== "") {
+                global.onlineHooks[newState.channel.id] = m;
+            }
         }
     } else if (oldState.channel && !newState.channel) {
         // Leave
@@ -45,11 +51,15 @@ module.exports = async (_, oldState, newState) => {
 
         if (global.onlineHooks[oldState.channel.id]) {
             if (members.length <= 1) {
-                await global.onlineHooks[oldState.channel.id].delete();
+                try {
+                    await global.onlineHooks[oldState.channel.id].delete();
+                } catch {}
                 global.onlineHooks[oldState.channel.id] = null;
             } else {
                 let m = global.onlineHooks[oldState.channel.id];
-                m = await m.edit(`${role} **${members.length}** ${members.length > 1 ? 'members' : 'member'} in ${oldState.channel.name} online`);
+                try {
+                    m = await m.edit(`${role} **${members.length}** ${members.length > 1 ? 'members' : 'member'} in ${oldState.channel.name} online`);
+                } catch {}
                 global.onlineHooks[oldState.channel.id] = m;
             }
         }
